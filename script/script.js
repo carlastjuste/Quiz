@@ -79,7 +79,7 @@ function showPreviousAnswer () {
        quizFooter.innerHTML = "<p>Wrong!</p>";
     }
 
-    localStorage.removeItem('result');
+
 }
 
 //function to handle showing next question or result
@@ -91,6 +91,8 @@ function manager() {
     else {
         hideQuizQuestion();
         showResult();
+        showPreviousAnswer();
+        localStorage.removeItem('result');
     }
 }
 
@@ -100,7 +102,7 @@ function hideQuizQuestion(){
     quizQuestions.style.display = "none";
 }
 
-// function to show result div
+// function to show final score
 function showResult() { 
     var result = document.getElementById('result');
     result.innerHTML += "<h1>All Done!</h1> <label>Your final score is : " + score + " </label> <br><br><br>" ;
@@ -119,6 +121,8 @@ function showScoreBoard(){
  var listPers = localStorage.getItem('scoreinfo');
  var lst = JSON.parse(listPers);
 
+ localStorage.removeItem('result');
+
  scoreboard.innerHTML += "<h1>Highscores</h1><br><br>";
 
  for (var k in lst) {
@@ -127,7 +131,22 @@ function showScoreBoard(){
 	}
  }
     
- scoreboard.innerHTML += "<input type='Submit' value = 'Go Back' ></input>&nbsp; &nbsp; &nbsp; <input type='Submit' value = 'Clear Highscores' ></input> ";
+ scoreboard.innerHTML += "<input type='Submit' value = 'Go Back' onClick='refresh()'></input>&nbsp; &nbsp; &nbsp; <input type='Submit' value = 'Clear Highscores' onClick='clearScore()' ></input> ";
+}
+
+
+//function to reintialize quiz
+function refresh() {
+    location.reload();
+}
+
+
+//function to clear high scoreboard
+function clearScore() {
+    localStorage.removeItem('scoreinfo');
+    var scoreboard = document.getElementById('scoreboard');
+    scoreboard.innerHTML += "<h1>Highscores</h1><br><br>"
+
 }
 
 //function to show countdown timer on the screen
