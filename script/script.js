@@ -3,6 +3,7 @@ var score = 0;
 var maxTime = 20;
 var remainTime = 0;
 
+//Array for list of questions and answers
 var questions = [{
     question: "1. What is the longest that an elephant has ever lived? (That we know of)",
     choices: ["17 years", "49 years", "86 years", "142 years"],
@@ -22,10 +23,14 @@ var questions = [{
 }];
 
 
+// function to get an HTML element by ID
 function get(x){
     return document.getElementById(x);
  }
 
+
+
+ //Funtion to display the quiz questions and choices 
 function showQuestion (){
         quizContent = get("content");
         quizFooter = get("quizFooter");
@@ -34,21 +39,20 @@ function showQuestion (){
         if (indexQuestion === 0){
            localStorage.removeItem('result');
         }
-        //remove button
+
+        //remove quiz button
         quizFooter.innerHTML= "<p></p>";
 
         // display the question
         quizContent.innerHTML = "<h3>" + currentQuestion.question + "</h3>";
       
         // display the answer options
-        // the += appends to the data we started on the line above
-
         for (var choice of currentQuestion.choices) {
             var currentAnswer = currentQuestion.choices.indexOf(choice);
             quizContent.innerHTML += "<label> <input type='radio' name='choices' value='A' onClick='choiceHandler(" + currentAnswer + ")'>" + choice + "</label><br><br>";
         }
 
-		indexQuestion++;
+        indexQuestion++;
 		showPreviousAnswer();  
 }
 
@@ -69,7 +73,7 @@ function choiceHandler(currentAnswer){
     manager();
 }
 
-// function to show previous answer at the bottom of each question
+// function to show previous answer result at the bottom of each question
 function showPreviousAnswer () {
     var previousResult = localStorage.getItem('result');
 
@@ -78,33 +82,27 @@ function showPreviousAnswer () {
     } else if (previousResult == 0) {
        quizFooter.innerHTML = "<p>Wrong!</p>";
     }
-
-
 }
 
 //function to handle showing next question or result
 function manager() {  
   
-    if (remainTime >0 && indexQuestion < questions.length ) {
+    if (remainTime > 0 && indexQuestion < questions.length ) {
         showQuestion();
     }
     else {
-        hideQuizQuestion();
+
         showResult();
         showPreviousAnswer();
         localStorage.removeItem('result');
     }
 }
 
-// function to hide quiz question divs
-function hideQuizQuestion(){
-    var quizQuestions = document.getElementById('quizQuestions');
-    quizQuestions.style.display = "none";
-}
-
 // function to show final score
 function showResult() { 
     var result = document.getElementById('result');
+    var quizQuestions = document.getElementById('quizQuestions');
+    quizQuestions.style.display = "none";
     result.innerHTML += "<h1>All Done!</h1> <label>Your final score is : " + score + " </label> <br><br><br>" ;
     result.innerHTML += "<label>Enter Initials :</label> &nbsp; &nbsp; &nbsp; <input id='userinfo' type='text' ></input> &nbsp; &nbsp; &nbsp; <input type='Submit'  onclick='submitScore()'></input>"
 }
@@ -145,7 +143,8 @@ function refresh() {
 function clearScore() {
     localStorage.removeItem('scoreinfo');
     var scoreboard = document.getElementById('scoreboard');
-    scoreboard.innerHTML += "<h1>Highscores</h1><br><br>"
+    scoreboard.innerHTML = "<h1>Highscores</h1><br><br>";
+    scoreboard.innerHTML += "<input type='Submit' value = 'Go Back' onClick='refresh()'></input>&nbsp; &nbsp; &nbsp; <input type='Submit' value = 'Clear Highscores' onClick='clearScore()' ></input> ";
 
 }
 
