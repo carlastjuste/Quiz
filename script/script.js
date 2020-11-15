@@ -23,7 +23,7 @@ var questions = [{
 }];
 
 
-// function to get an HTML element by ID
+// Function to get an HTML element by ID
 function get(x){
     return document.getElementById(x);
  }
@@ -57,7 +57,7 @@ function showQuestion (){
 }
 
 
-// function to check if choice is correct or not
+// Function to check if choice is correct or not
 function choiceHandler(currentAnswer){
     var currentQuestion = questions[indexQuestion - 1];
 
@@ -73,7 +73,7 @@ function choiceHandler(currentAnswer){
     manager();
 }
 
-// function to show previous answer result at the bottom of each question
+// Function to show previous answer result at the bottom of each question
 function showPreviousAnswer () {
     var previousResult = localStorage.getItem('result');
 
@@ -84,7 +84,7 @@ function showPreviousAnswer () {
     }
 }
 
-//function to handle showing next question or result
+//Function to handle showing next question or result
 function manager() {  
   
     if (remainTime > 0 && indexQuestion < questions.length ) {
@@ -98,7 +98,7 @@ function manager() {
     }
 }
 
-// function to show final score
+// Function to show final score
 function showResult() { 
     var result = document.getElementById('result');
     var quizQuestions = document.getElementById('quizQuestions');
@@ -107,13 +107,13 @@ function showResult() {
     result.innerHTML += "<label>Enter Initials :</label> &nbsp; &nbsp; &nbsp; <input id='userinfo' type='text' ></input> &nbsp; &nbsp; &nbsp; <input type='Submit'  onclick='submitScore()'></input>"
 }
 
-// function to hide result div
+// Function to hide result div
 function hideResult(){
     var result = document.getElementById('result');
     result.innerHTML = '';
 }
 
-//function to show scoreboard
+//Function to show scoreboard
 function showScoreBoard(){
  var scoreboard = document.getElementById('scoreboard');
  var listPers = localStorage.getItem('scoreinfo');
@@ -133,13 +133,13 @@ function showScoreBoard(){
 }
 
 
-//function to reintialize quiz
+//Function to reintialize quiz
 function refresh() {
     location.reload();
 }
 
 
-//function to clear high scoreboard
+//Function to clear high scoreboard
 function clearScore() {
     localStorage.removeItem('scoreinfo');
     var scoreboard = document.getElementById('scoreboard');
@@ -148,7 +148,7 @@ function clearScore() {
 
 }
 
-//function to show countdown timer on the screen
+//Function to show countdown timer on the screen
 function startTimer(duration, display) {
     var timer = duration, minutes, seconds;
 	
@@ -168,19 +168,21 @@ function startTimer(duration, display) {
     }, 1000);
 }
 
-//function to initialize timer for the first time and display the questions on the screen
+//Function to initialize timer for the first time and display the questions on the screen
  function startQuiz() {
     display = document.querySelector('#time');
     startTimer(maxTime, display);
     showQuestion();
 }   
 
+// Function to handle the click on the submit score button
 function submitScore(){
   saveScore();
   hideResult();
   showScoreBoard();
 }
 
+//Function to save the score and the initial
 function saveScore(){
   var userinfo = document.getElementById('userinfo');
   var listPers = localStorage.getItem('scoreinfo');
@@ -197,5 +199,5 @@ function saveScore(){
 }
 
 
-// Add event listener to generate button
+// Add event listener to startQuizBtn button
 startQuizBtn.addEventListener("click", startQuiz);
