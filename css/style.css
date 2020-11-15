@@ -30,6 +30,12 @@ header {
   color: hsl(206, 17%, 28%);
 }
 
+#time {
+    text-align: center;
+    padding: 20px;
+    padding-top: 0px;
+    color:red; 
+}
 .card {
   background-color: hsl(0, 0%, 100%);
   border-radius: 5px;

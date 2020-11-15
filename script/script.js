@@ -1,5 +1,6 @@
 var indexQuestion = 0;
 var score = 0;
+var maxTime = 60 * 1;
 
 var questions = [{
     question: "1. What is the longest that an elephant has ever lived? (That we know of)",
@@ -60,8 +61,6 @@ function showQuestion () {
 // function to check if choice is correct or not
 function choiceHandler(currentAnswer){
 
-    console.log(currentAnswer);
-
     var currentQuestion = questions[indexQuestion - 1];
 
     
@@ -84,7 +83,7 @@ function choiceHandler(currentAnswer){
 
 function showPreviousAnswer () {
     var previousResult = localStorage.getItem('result');
-    //console.log(previousResult);
+
     if (previousResult == 1) 
 
         {
@@ -100,11 +99,6 @@ function showPreviousAnswer () {
 }
 
 
-
-
-
-
-
 function manager() {    
     showQuestion();
     
@@ -116,7 +110,31 @@ function manager() {
 
 }
 
+function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+            timer = duration;
+        }
+    }, 1000);
+}
+
+ function startQuiz() {
+    display = document.querySelector('#time');
+    startTimer(maxTime, display);
+    showQuestion();
+        
+};
+
 
       
     // Add event listener to generate button
-    startQuizBtn.addEventListener("click", showQuestion);
+    startQuizBtn.addEventListener("click", startQuiz);
