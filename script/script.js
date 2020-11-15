@@ -1,6 +1,6 @@
 var indexQuestion = 0;
 var score = 0;
-var maxTime = 10;
+var maxTime = 20;
 var remainTime = 0;
 
 var questions = [{
@@ -70,11 +70,13 @@ function choiceHandler(currentAnswer){
         
         score++;
         localStorage.setItem ('result', 1);
-
+        
         
     }else{
         
         localStorage.setItem ('result', 0);
+        remainTime = remainTime - 10;
+        startTimer(remainTime, display);
         // substract 10s to remaining time
     }
 
@@ -145,6 +147,8 @@ function showScoreBoard(){
             scoreboard.innerHTML += "<label>" + k + " " + lst[k] +  " </label> <br> <br> <br>"
         }
     }
+    
+ scoreboard.innerHTML += "<input type='Submit' value = 'Go Back' ></input>&nbsp; &nbsp; &nbsp; <input type='Submit' value = 'Clear Highscores' ></input> ";
 }
 
 function startTimer(duration, display) {
@@ -180,8 +184,6 @@ function submitScore(){
   if(listPers == null ){
       var lst = new Object();
       lst[userinfo.value] = score;
-      console.log('sak pase msye laaaaa');
-       console.log(JSON.stringify(lst));
       localStorage.setItem("scoreinfo", JSON.stringify(lst));
   }else{
        var lst = JSON.parse(listPers);
